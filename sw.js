@@ -1,5 +1,5 @@
-const CACHE = "fun-taipei-pages-v7-20261001";
-const HOME = new URL("./", self.location).href; const VIDEO = new URL("fun-taipei-no-logo-v5.mp4", HOME).href; const CORE = [HOME, VIDEO, new URL("og.png", HOME).href, new URL("favicon.svg", HOME).href, new URL("manifest.webmanifest", HOME).href];
+const CACHE = "fun-taipei-pages-v8-20261001";
+const HOME = new URL("./", self.location).href; const VIDEO = new URL("fun-taipei-no-logo-v5.mp4", HOME).href; const SURVEY_PATH = new URL("survey/", HOME).pathname; const CORE = [HOME, VIDEO, new URL("og.png", HOME).href, new URL("favicon.svg", HOME).href, new URL("manifest.webmanifest", HOME).href];
 self.addEventListener("install", event => { event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", event => { event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith("fun-taipei-pages-") && key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim())); });
 async function rangedVideo(request) {
@@ -12,5 +12,6 @@ self.addEventListener("fetch", event => {
   const request = event.request; if (request.method !== "GET") return; const url = new URL(request.url); if (url.origin !== self.location.origin) return;
   if (url.href === VIDEO && request.headers.has("range")) { event.respondWith(rangedVideo(request)); return; }
   if (request.mode === "navigate") { event.respondWith(fetch(request).then(response => { const copy = response.clone(); caches.open(CACHE).then(cache => cache.put(request, copy)); return response; }).catch(() => caches.match(request).then(cached => cached || caches.match(HOME)))); return; }
+  if (url.pathname.startsWith(SURVEY_PATH)) { event.respondWith(fetch(request).then(response => { if (response.ok) caches.open(CACHE).then(cache => cache.put(request, response.clone())); return response; }).catch(() => caches.match(request))); return; }
   event.respondWith(caches.match(request).then(cached => cached || fetch(request).then(response => { if (response.ok) caches.open(CACHE).then(cache => cache.put(request, response.clone())); return response; })));
 });
