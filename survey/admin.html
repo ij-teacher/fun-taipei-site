@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>問卷結果下載</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="hero"><div class="hero-inner"><p class="eyebrow">教師專用</p><h1>問卷結果下載</h1><p class="subtitle">Survey Results</p></div></header>
+  <main class="admin-main">
+    <section class="admin-card">
+      <h2>登入結果頁</h2>
+      <p>輸入教師密碼後，可以查看回覆數量並下載 CSV。</p>
+      <div class="token-row"><input id="adminToken" type="password" autocomplete="current-password" placeholder="教師密碼"><button class="admin-button" id="loadResults">查看結果</button></div>
+      <p class="form-error" id="adminError" aria-live="polite"></p>
+      <div id="dashboard" hidden>
+        <div class="dashboard">
+          <div class="metric"><span>有效回覆</span><strong id="responseCount">0</strong></div>
+          <div class="metric"><span>最近更新</span><strong id="latestDate">—</strong></div>
+        </div>
+        <button class="admin-button" id="downloadCsv">下載 CSV 結果</button>
+      </div>
+    </section>
+    <section class="admin-card">
+      <h2>學生問卷 QR Code</h2>
+      <div class="qr-layout">
+        <img src="./survey-qr.svg" alt="華語學習網站使用意見問卷 QR Code">
+        <div><p>讓學生掃描 QR Code，即可開啟問卷。</p><p><a class="quiet-link" href="./survey-qr.svg" download="華語教學網站問卷-QR-Code.svg">下載 QR Code</a></p><p><a class="quiet-link" href="./">開啟學生問卷</a></p></div>
+      </div>
+    </section>
+  </main>
+  <footer><span>華語教學網站研究</span><a href="./">返回學生問卷</a></footer>
+  <script src="./admin.js" defer></script>
+</body>
+</html>

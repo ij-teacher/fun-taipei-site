@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17324d">
+  <title>華語學習網站使用意見問卷</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">約 3 分鐘 · 不記名問卷</p>
+      <h1>華語學習網站<br>使用意見問卷</h1>
+      <p class="subtitle">Chinese Learning Website Feedback Survey</p>
+      <p class="intro">你好！這份問卷想了解你使用華語學習網站的想法。你的意見可以幫助我們把網站做得更好。</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="progress-wrap" aria-label="作答進度">
+      <div class="progress-copy"><span>作答進度</span><strong id="progressText">0 / 15</strong></div>
+      <div class="progress-track"><span id="progressBar"></span></div>
+    </div>
+
+    <form id="surveyForm" novalidate>
+      <section class="panel" aria-labelledby="site-heading">
+        <div class="section-heading">
+          <span>01</span>
+          <div><h2 id="site-heading">本次使用的網站</h2><p>請選一個最符合的答案。</p></div>
+        </div>
+        <fieldset class="site-options">
+          <legend class="sr-only">本次使用的網站</legend>
+          <label><input type="radio" name="site" value="fun-taipei" required><span>FUN TAIPEI</span></label>
+          <label><input type="radio" name="site" value="lucky-wheel"><span>幸運轉盤</span></label>
+          <label><input type="radio" name="site" value="other"><span>其他華語教學網站</span></label>
+        </fieldset>
+      </section>
+
+      <div id="questionSections"></div>
+
+      <section class="panel" aria-labelledby="improvement-heading">
+        <div class="section-heading">
+          <span>05</span>
+          <div><h2 id="improvement-heading">改善建議</h2><p>第 15 題，可複選。</p></div>
+        </div>
+        <fieldset class="improvement-options">
+          <legend>15. 你覺得網站哪裡需要改善？</legend>
+          <label><input type="checkbox" name="improvements" value="mobile"><span>手機畫面需要更容易操作。</span></label>
+          <label><input type="checkbox" name="improvements" value="visual"><span>字體需要放大，或顏色需要調整。</span></label>
+          <label><input type="checkbox" name="improvements" value="explanation"><span>寫錯時，需要更多解釋與說明。</span></label>
+          <label><input type="checkbox" name="improvements" value="paper"><span>我覺得紙本講義的學習效果比較好。</span></label>
+          <label><input type="checkbox" name="improvements" value="variety"><span>練習活動的類型需要更多變化。</span></label>
+          <label><input type="checkbox" name="improvements" value="none"><span>以上都不需要改善。</span></label>
+        </fieldset>
+      </section>
+
+      <input class="honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <p class="form-error" id="formError" role="alert" aria-live="polite"></p>
+      <button class="submit-button" type="submit">送出問卷</button>
+      <p class="privacy-note">問卷不收集姓名、電子郵件或學號。</p>
+    </form>
+
+    <section class="success" id="success" hidden aria-live="polite">
+      <div class="success-mark">✓</div>
+      <h2>謝謝你的意見！</h2>
+      <p>你的回答已經送出，可以關閉這個頁面。</p>
+      <button id="newResponse" type="button">填寫另一份問卷</button>
+    </section>
+  </main>
+
+  <footer>
+    <span>華語教學網站研究</span>
+    <a href="./admin.html">教師下載結果</a>
+  </footer>
+  <script src="./app.js" defer></script>
+</body>
+</html>
