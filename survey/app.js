@@ -93,17 +93,11 @@ function updateProgress() {
   const data = new FormData(form);
   let done = 0;
   for (let i = 1; i <= 13; i++) if (data.get(`q${i}`)) done++;
-  if (data.getAll("improvements").length) done++;
-  document.querySelector("#progressText").textContent = `${done} / 14`;
-  document.querySelector("#progressBar").style.width = `${done / 14 * 100}%`;
+  document.querySelector("#progressText").textContent = `${done} / 13`;
+  document.querySelector("#progressBar").style.width = `${done / 13 * 100}%`;
 }
 
 form.addEventListener("change", event => {
-  if (event.target.name === "improvements") {
-    const boxes = [...form.querySelectorAll('[name="improvements"]')];
-    if (event.target.value === "none" && event.target.checked) boxes.filter(box => box.value !== "none").forEach(box => box.checked = false);
-    if (event.target.value !== "none" && event.target.checked) boxes.find(box => box.value === "none").checked = false;
-  }
   saveDraft();
   updateProgress();
 });
@@ -117,16 +111,11 @@ form.addEventListener("submit", async event => {
     return;
   }
   const data = new FormData(form);
-  if (!data.getAll("improvements").length) {
-    errorBox.textContent = "請完成第 14 題；如果都不需要改善，請選擇「以上都不需要改善」。";
-    document.querySelector("#improvement-heading").scrollIntoView({behavior: "smooth", block: "center"});
-    return;
-  }
   const payload = {
     submissionId: crypto.randomUUID(),
     site: "general",
     answers: Array.from({length: 13}, (_, i) => Number(data.get(`q${i + 1}`))),
-    improvements: data.getAll("improvements").filter(value => value !== "none"),
+    improvements: data.getAll("improvements"),
     website: data.get("website")
   };
   submitButton.disabled = true;
@@ -149,15 +138,6 @@ form.addEventListener("submit", async event => {
     submitButton.disabled = false;
     submitButton.textContent = "送出問卷";
   }
-});
-
-document.querySelector("#newResponse").addEventListener("click", () => {
-  form.reset();
-  form.hidden = false;
-  document.querySelector(".progress-wrap").hidden = false;
-  document.querySelector("#success").hidden = true;
-  updateProgress();
-  window.scrollTo({top: 0, behavior: "smooth"});
 });
 
 restoreDraft();
