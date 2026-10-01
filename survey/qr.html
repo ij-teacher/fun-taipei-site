@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>華語學習網站問卷 QR Code</title>
+  <style>
+    :root { font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif; color: #17324d; background: #f4efe4; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+    main { width: min(680px, 100%); padding: clamp(28px, 6vw, 56px); text-align: center; background: #fffdf8; border: 1px solid #d9e0e5; border-radius: 28px; box-shadow: 0 18px 50px rgba(23,50,77,.12); }
+    .eyebrow { margin: 0 0 8px; color: #c64e31; font-weight: 800; letter-spacing: .08em; }
+    h1 { margin: 0; font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.18; }
+    p { margin: 12px 0 24px; color: #607083; font-size: 1.05rem; }
+    img { display: block; width: min(380px, 82vw); height: auto; margin: 0 auto 24px; background: white; }
+    .url { overflow-wrap: anywhere; color: #17324d; font-size: .94rem; }
+    .actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .actions a, button { padding: 12px 18px; color: white; background: #17324d; border: 0; border-radius: 12px; font: inherit; font-weight: 800; text-decoration: none; cursor: pointer; }
+    .actions a:first-child { background: #e96c4c; }
+    @media print { body { background: white; padding: 0; } main { border: 0; box-shadow: none; } .actions { display: none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">掃描後填寫</p>
+    <h1>華語學習網站<br>使用意見問卷</h1>
+    <p>請使用手機相機掃描 QR Code。</p>
+    <img src="./survey-qr.svg" alt="華語學習網站使用意見問卷 QR Code">
+    <div class="url">https://ij-teacher.github.io/fun-taipei-site/survey/</div>
+    <div class="actions">
+      <a href="./survey-qr.svg" download="華語教學網站問卷-QR-Code.svg">下載 QR Code</a>
+      <button type="button" onclick="window.print()">列印 QR Code</button>
+      <a href="./">開啟問卷</a>
+    </div>
+  </main>
+</body>
+</html>
