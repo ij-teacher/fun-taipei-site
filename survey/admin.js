@@ -1,18 +1,20 @@
 const API_BASE = "https://chinese-learning-survey-api.ijchen.workers.dev";
-const tokenInput = document.querySelector("#adminToken");
 const errorBox = document.querySelector("#adminError");
 const dashboard = document.querySelector("#dashboard");
+const fragmentKey = new URLSearchParams(window.location.hash.slice(1)).get("key") || "";
+if (fragmentKey) sessionStorage.setItem("survey-admin-key", fragmentKey);
+const accessKey = fragmentKey || sessionStorage.getItem("survey-admin-key") || "";
+if (fragmentKey) history.replaceState(null, "", window.location.pathname + window.location.search);
 
 async function authorizedFetch(path) {
-  const token = tokenInput.value.trim();
-  if (!token) throw new Error("請輸入教師密碼。");
-  const response = await fetch(`${API_BASE}${path}`, {headers: {Authorization: `Bearer ${token}`}});
-  if (response.status === 401) throw new Error("教師密碼不正確。");
+  if (!accessKey) throw new Error("請使用教師專用結果連結開啟此頁。");
+  const response = await fetch(`${API_BASE}${path}`, {headers: {Authorization: `Bearer ${accessKey}`}});
+  if (response.status === 401) throw new Error("教師專用結果連結無效。");
   if (!response.ok) throw new Error("目前無法讀取結果，請稍後再試。");
   return response;
 }
 
-document.querySelector("#loadResults").addEventListener("click", async () => {
+async function loadResults() {
   errorBox.textContent = "";
   try {
     const response = await authorizedFetch("/summary");
@@ -24,7 +26,7 @@ document.querySelector("#loadResults").addEventListener("click", async () => {
     dashboard.hidden = true;
     errorBox.textContent = error.message;
   }
-});
+}
 
 document.querySelector("#downloadCsv").addEventListener("click", async () => {
   errorBox.textContent = "";
@@ -41,3 +43,5 @@ document.querySelector("#downloadCsv").addEventListener("click", async () => {
     errorBox.textContent = error.message;
   }
 });
+
+loadResults();
