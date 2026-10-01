@@ -3,7 +3,7 @@ const DRAFT_KEY = "chinese-learning-survey-draft-v1";
 
 const sections = [
   {
-    number: "02",
+    number: "01",
     title: "網站使用經驗",
     english: "Website Experience",
     questions: [
@@ -16,7 +16,7 @@ const sections = [
     ]
   },
   {
-    number: "03",
+    number: "02",
     title: "學習效果",
     english: "Learning Help",
     questions: [
@@ -28,7 +28,7 @@ const sections = [
     ]
   },
   {
-    number: "04",
+    number: "03",
     title: "未來意願",
     english: "Future Use",
     questions: [
@@ -49,7 +49,7 @@ for (const section of sections) {
     const fieldset = document.createElement("fieldset");
     fieldset.className = "question";
     fieldset.innerHTML = `
-      <legend>${q + 1}. ${question}</legend>
+      <legend>${q}. ${question}</legend>
       <div class="scale-labels"><span>非常不同意</span><span>非常同意</span></div>
       <div class="scale">
         ${[1,2,3,4,5].map(value => `<label><input type="radio" name="q${q}" value="${value}" required><span>${value}</span></label>`).join("")}
@@ -91,11 +91,11 @@ function saveDraft() {
 
 function updateProgress() {
   const data = new FormData(form);
-  let done = data.get("site") ? 1 : 0;
+  let done = 0;
   for (let i = 1; i <= 13; i++) if (data.get(`q${i}`)) done++;
   if (data.getAll("improvements").length) done++;
-  document.querySelector("#progressText").textContent = `${done} / 15`;
-  document.querySelector("#progressBar").style.width = `${done / 15 * 100}%`;
+  document.querySelector("#progressText").textContent = `${done} / 14`;
+  document.querySelector("#progressBar").style.width = `${done / 14 * 100}%`;
 }
 
 form.addEventListener("change", event => {
@@ -118,13 +118,13 @@ form.addEventListener("submit", async event => {
   }
   const data = new FormData(form);
   if (!data.getAll("improvements").length) {
-    errorBox.textContent = "請完成第 15 題；如果都不需要改善，請選擇「以上都不需要改善」。";
+    errorBox.textContent = "請完成第 14 題；如果都不需要改善，請選擇「以上都不需要改善」。";
     document.querySelector("#improvement-heading").scrollIntoView({behavior: "smooth", block: "center"});
     return;
   }
   const payload = {
     submissionId: crypto.randomUUID(),
-    site: data.get("site"),
+    site: "general",
     answers: Array.from({length: 13}, (_, i) => Number(data.get(`q${i + 1}`))),
     improvements: data.getAll("improvements").filter(value => value !== "none"),
     website: data.get("website")
