@@ -19,6 +19,11 @@ button, input { font: inherit; }
 .hero { color: white; background: var(--ink); padding: 54px 24px 70px; overflow: hidden; position: relative; }
 .hero::after { content: ""; position: absolute; width: 300px; height: 300px; right: -70px; top: -130px; border: 46px solid rgba(255,255,255,.08); border-radius: 50%; }
 .hero-inner, main, footer { width: min(820px, calc(100% - 32px)); margin: 0 auto; }
+.hero-layout { display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: 36px; align-items: center; }
+.hero-qr { position: relative; z-index: 1; padding: 14px; color: var(--ink); text-align: center; background: white; border-radius: 18px; box-shadow: 0 12px 30px rgba(0,0,0,.18); }
+.hero-qr img { display: block; width: 100%; height: auto; }
+.hero-qr strong { display: block; margin-top: 7px; }
+.hero-qr a { display: inline-block; margin-top: 2px; color: var(--ink); font-size: .82rem; }
 .eyebrow { display: inline-block; margin: 0 0 14px; color: #ffd27a; font-weight: 800; letter-spacing: .08em; }
 h1 { margin: 0; font-size: clamp(2.2rem, 7vw, 4.4rem); line-height: 1.12; letter-spacing: -.035em; }
 .subtitle { margin: 14px 0 24px; color: #b9d4e4; font-weight: 700; }
@@ -79,6 +84,8 @@ footer a { color: var(--ink); }
 @media (max-width: 600px) {
   .hero { padding-top: 38px; }
   .hero-inner, main, footer { width: min(100% - 22px, 820px); }
+  .hero-layout { grid-template-columns: 1fr; gap: 24px; }
+  .hero-qr { width: min(220px, 72vw); margin: 0 auto; }
   .panel { border-radius: 18px; }
   .progress-wrap { top: 6px; }
   footer { flex-direction: column; }
