@@ -1,5 +1,5 @@
-const CACHE = "fun-taipei-pages-v8-20261001";
-const HOME = new URL("./", self.location).href; const VIDEO = new URL("fun-taipei-no-logo-v5.mp4", HOME).href; const SURVEY_PATH = new URL("survey/", HOME).pathname; const CORE = [HOME, VIDEO, new URL("og.png", HOME).href, new URL("favicon.svg", HOME).href, new URL("manifest.webmanifest", HOME).href];
+const CACHE = "fun-taipei-pages-v9-20261005";
+const HOME = new URL("./", self.location).href; const VIDEO = new URL("fun-taipei-no-logo-v5.mp4", HOME).href; const SURVEY_PATH = new URL("survey/", HOME).pathname; const CORE = [HOME, new URL("assets/index-vocabulary-20261005.js", HOME).href, new URL("assets/index-vocabulary-20261005.css", HOME).href, new URL("data/vocabulary.js", HOME).href, VIDEO, new URL("og.png", HOME).href, new URL("favicon.svg", HOME).href, new URL("manifest.webmanifest", HOME).href];
 self.addEventListener("install", event => { event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", event => { event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith("fun-taipei-pages-") && key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim())); });
 async function rangedVideo(request) {
